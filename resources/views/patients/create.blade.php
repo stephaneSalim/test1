@@ -26,9 +26,9 @@
             {{Form::label('contact', 'Contact')}}
             {{Form::text('contact', '',['class'=>'form-control', 'placeholder'=>'saisissez le contact'])}}
         </div>
-        <div class="form-group">
+        <!--<div class="form-group">
             {{Form::hidden('onWait','1')}}
-        </div>
+        </div>-->
         {{Form::submit('Enregistrer',['class' => 'btn btn-primary'])}}
     {{ Form::close() }}
 @endsection

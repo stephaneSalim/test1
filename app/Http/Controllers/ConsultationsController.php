@@ -26,6 +26,7 @@ class ConsultationsController extends Controller
      */
     public function create()
     {
+        
         return view('consultations.create');
     }
 
@@ -37,7 +38,12 @@ class ConsultationsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $consultation = new Consultation;
+        $consultation->accompagnant = $request->input('accompagnant');
+        $consultation->contactaccompagnant = $request->input('contactaccompagnant');
+        $consultation->reference = $request->input('reference');
+        $consultation->save();
+        return redirect('/consultations')->with('success','consultation créee avec success');
     }
 
     /**

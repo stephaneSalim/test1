@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
     <a href="../patients" class="btn btn-default">Retour</a>
-    <a href="../patients" class="btn btn-default pull-right">Consultation</a>
+    <a href="../consultations/create" class="btn btn-default pull-right">Consultation</a>
     <h1>{{$patient->nom}} {{$patient->prenom}}</h1>
     <hr>
     <small>Age: <b>{{$patient->age}}</b> </small><br>

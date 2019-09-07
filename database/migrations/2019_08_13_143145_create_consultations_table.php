@@ -15,9 +15,9 @@ class CreateConsultationsTable extends Migration
     {
         Schema::create('consultations', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('accompagnant');
-            $table->string('contactaccompagnant');
-            $table->string('reference');
+            $table->string('accompagnant')->nullable();
+            $table->string('contactaccompagnant')->nullable();
+            $table->string('reference')->nullable();
             $table->timestamps();
         });
     }
