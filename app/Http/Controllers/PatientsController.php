@@ -58,7 +58,7 @@ class PatientsController extends Controller
         $patient->adresse = $request->input('adresse');
         $patient->contact = $request->input('contact');
         $patient->user_id = auth()->user()->id;
-        $patient->onWait = $request->input('onWait');
+        //$patient->onWait = $request->input('onWait');
         $patient->save();
 
         return redirect('/patients')->with('success','Patient créé  avec succès');
