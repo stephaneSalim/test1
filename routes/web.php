@@ -17,7 +17,7 @@ Route::get('/search', 'PatientsController@search');
 
 Route::resource('patients', 'PatientsController');
 Route::resource('consultations','ConsultationsController');
-
+Route::resource('fichesDeSuivi','FichesDeSuiviController');
 Auth::routes();
 
 Route::get('/dashboard', 'DashboardController@index');

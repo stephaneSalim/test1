@@ -3,11 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Consultation;
-use App\Patient;
-use Carbon\Carbon;
+use App\FicheDeSuivi;
 
-class ConsultationsController extends Controller
+class FichesDeSuiviController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,9 +14,8 @@ class ConsultationsController extends Controller
      */
     public function index()
     {
-        $consultations = Consultation::whereDate('created_at', Carbon::today())->orderBy('created_at','asc')->paginate(20);
-        //dd($consultations);
-        return view('consultations.index')->with('consultations', $consultations);
+        $fichesDeSuivi = FicheDeSuivi::orderBy('created_at','asc')->paginate(20);
+        return view('fichesDeSuivi.index')->with('fichesDeSuivi', $fichesDeSuivi);
     }
 
     /**
@@ -26,10 +23,9 @@ class ConsultationsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
+    public function create()
     {
-        $patient = $request->session()->get('patient');
-        return view('consultations.create')->with('patient',$patient);
+        //
     }
 
     /**
@@ -40,13 +36,7 @@ class ConsultationsController extends Controller
      */
     public function store(Request $request)
     {
-        $consultation = new Consultation;
-        $consultation->accompagnant = $request->input('accompagnant');
-        $consultation->contactaccompagnant = $request->input('contactaccompagnant');
-        $consultation->reference = $request->input('reference');
-        $consultation->patient_id = $request->input('patient_id');
-        $consultation->save();
-        return redirect('/consultations')->with('success','consultation créee avec success');
+        //
     }
 
     /**

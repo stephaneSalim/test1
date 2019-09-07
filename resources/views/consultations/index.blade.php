@@ -4,7 +4,7 @@
     @if(count($consultations) > 0)
         @foreach ($consultations as $consultation)
             <div class="well">
-                <h5><a href="/sghl/public/consultations/{{$consultation->id}}">4</a></h5>
+                <h5><a href="/sghl/public/consultations/{{$consultation->id}}">{{$consultation->patient->nom}} {{$consultation->patient->prenom}}</a></h5>
             </div>
         @endforeach
         {{$consultations->links()}}
