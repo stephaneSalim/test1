@@ -73,6 +73,7 @@ class PatientsController extends Controller
     public function show($id)
     {
         $patient = Patient::find($id);
+        session(['patient'=>$patient]);
         return view('patients.show')->with('patient', $patient);
     }
 

@@ -1,6 +1,7 @@
 @extends('layouts.app')
 @section('content')
     <h1>Creer consultation</h1>
+    {{$patient->id}}
     {!! Form::open(['action' => 'ConsultationsController@store', 'method' => 'POST']) !!}
         <div class="form-group">
             {{Form::label('accompagnant','Nom Accompagnant')}}
@@ -13,6 +14,9 @@
         <div class="form-group">
             {{Form::label('reference','Reference')}}
             {{Form::text('reference','',['class'=>'form-control','placeholder'=>'venu de la part de ?'])}}
+        </div>
+        <div class="form-group">
+            {{Form::hidden('patient_id', $patient->id)}}
         </div>
         {{Form::submit('Creer', ['class'=>'btn btn-primary'])}}
     {!! Form::close() !!}
