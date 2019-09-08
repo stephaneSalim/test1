@@ -11,4 +11,9 @@ class Consultation extends Model
     {
         return $this->belongsTo('App\Patient');
     }
+
+    public function ficheDeSuivi()
+    {
+        return $this->hasOne('App\FicheDeSuivi');
+    }
 }

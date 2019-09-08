@@ -57,7 +57,9 @@ class ConsultationsController extends Controller
      */
     public function show($id)
     {
-        //
+        $consultation = Consultation::find($id);
+        session(['consultation'=>$consultation]);
+        return view('consultations.show')->with('consultation', $consultation);
     }
 
     /**

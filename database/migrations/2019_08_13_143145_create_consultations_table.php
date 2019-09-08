@@ -18,6 +18,7 @@ class CreateConsultationsTable extends Migration
             $table->string('accompagnant')->nullable();
             $table->string('contactaccompagnant')->nullable();
             $table->string('reference')->nullable();
+            $table->integer('onWait')->default('1');
             $table->timestamps();
         });
     }
