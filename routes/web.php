@@ -11,13 +11,19 @@
 |
 */
 
+/*Route::get('/', function () {
+    return view('welcome');
+});*/
+
 Route::get('/', 'PagesController@index');
 Route::get('/patients/waiting', 'PatientsController@waiting');
 Route::get('/search', 'PatientsController@search');
 
-Route::resource('patients', 'PatientsController');
-Route::resource('consultations','ConsultationsController');
-Route::resource('fichesDeSuivi','FichesDeSuiviController');
+Route::resource('/patients', 'PatientsController');
+Route::resource('/consultations','ConsultationsController');
+Route::resource('/fichesDeSuivi','FichesDeSuiviController');
 Auth::routes();
 
-Route::get('/dashboard', 'DashboardController@index');
+//Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/dashboard', 'DashboardController@index')->name('dashboard');

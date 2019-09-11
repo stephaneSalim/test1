@@ -1,19 +1,37 @@
 @extends('layouts.app')
+@section('title','Details du patient '.  $patient->nom .' '. $patient->prenom)
+
+
 @section('content')
-    <a href="../patients" class="btn btn-default">Retour</a>
-    <a href="../consultations/create" class="btn btn-default pull-right">Consultation</a>
+     <div class="row">
+         <div class="col"><a href="/patients" class="btn btn-secondary">Retour</a></div>
+         <div class="col"><a href="/consultations/create" class="btn btn-secondary pull-right">Consultation</a></div>
+     </div><br>
+
     <h1>{{$patient->nom}} {{$patient->prenom}}</h1>
     <hr>
-    <small>Age: <b>{{$patient->age}}</b> </small><br>
-    <small>Sexe: <b>{{$patient->sexe}}</b></small>
-    <br>
-    <small>Adresse: <b>{{$patient->adresse}}</b></small><br>
-    <small>Contact: <b>{{$patient->contact}}</b></small>
-    <hr>
-    <a href="../patients/{{$patient->id}}/edit" class="btn btn-default">Modifier</a>
+    <p> Age: <b>{{$patient->age}}</b> <p>
+    <p>Sexe: <b>{{$patient->sexe}}</b></p>
+    <p>Adresse: <b>{{$patient->adresse}}</b></p>
+    <p>Contact: <b>{{$patient->contact}}</b></p>
+    <div class="row">
+        <div class="col">
+             <a href="/patients/{{$patient->id}}/edit" class="btn btn-info">Modifier</a>
+        </div>
+        <div class="col">
+            <form action="/patients/{{ $patient->id }}" method="POST">
+                @method('DELETE')
+                @csrf
+                <button type="submit" class="btn btn-danger">Supprimer</button>
 
-    {{Form::open(['action' => ['PatientsController@destroy', $patient->id], 'method' => 'POST', 'class' => 'pull-right'])}}
-        {{Form::hidden('_method', 'DELETE')}}
-        {{Form::submit('Supprimer',['class'=>'btn btn-danger'])}}
-    {{ Form::close() }}
-@endsection 
+            </form>
+        </div>
+    </div>
+
+
+
+    <hr>
+
+
+
+@endsection

@@ -19,6 +19,7 @@ class CreateConsultationsTable extends Migration
             $table->string('contactaccompagnant')->nullable();
             $table->string('reference')->nullable();
             $table->integer('onWait')->default('1');
+            $table->unsignedInteger('patient_id');
             $table->timestamps();
         });
     }

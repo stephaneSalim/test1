@@ -1,34 +1,17 @@
 @extends('layouts.app')
+
+@section('title','Nouveau Patient')
+
 @section('content')
-    <h1>Creer un patient</h1>
-    {{ Form::open(['action' => 'PatientsController@store', 'method' => 'POST']) }}
-        <div class="form-group">
-            {{Form::label('nom', 'Nom')}}
-            {{Form::text('nom', '',['class'=>'form-control', 'placeholder'=>'saisissez le nom'])}}
+    <div class="row">
+        <div class="col"> <h1>Nouveau Patient </h1></div>
+    </div>
+    <br>
+    <form action="/patients" method="POST">
+         @include('patients.form')
+         <div class="form-group">
+            <button type="submit"class="btn btn-primary">Enregistrer</button>
         </div>
-        <div class="form-group">
-            {{Form::label('prenom', 'Prenom')}}
-            {{Form::text('prenom', '',['class'=>'form-control', 'placeholder'=>'saisissez le prenom'])}}
-        </div>
-        <div class="form-group">
-            {{Form::label('age', 'Age')}}
-            {{Form::number('age', '',['class'=>'form-control'])}}
-        </div>
-        <div class="form-group">
-            {{Form::label('sexe', 'Sexe')}}
-            {{Form::text('sexe', '',['class'=>'form-control', 'placeholder'=>'saisissez le sexe'])}}
-        </div>
-        <div class="form-group">
-            {{Form::label('adresse', 'Adress')}}
-            {{Form::text('adresse', '',['class'=>'form-control', 'placeholder'=>'saisissez l\'adresse'])}}
-        </div>
-        <div class="form-group">
-            {{Form::label('contact', 'Contact')}}
-            {{Form::text('contact', '',['class'=>'form-control', 'placeholder'=>'saisissez le contact'])}}
-        </div>
-        <!--<div class="form-group">
-            {{Form::hidden('onWait','1')}}
-        </div>-->
-        {{Form::submit('Enregistrer',['class' => 'btn btn-primary'])}}
-    {{ Form::close() }}
+     </form>
+
 @endsection

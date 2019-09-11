@@ -8,6 +8,11 @@ use DB;
 
 class PatientsController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -26,7 +31,8 @@ class PatientsController extends Controller
      */
     public function create()
     {
-        return view('patients.create');
+        $patient = new Patient();
+        return view('patients.create',compact('patient'));
     }
 
     public function search(Request $request)
@@ -44,24 +50,9 @@ class PatientsController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'nom' => 'required',
-            'prenom' => 'required',
-            'contact' => 'required'
-        ]);
+        Patient::create($this->validateRequest());
+        return redirect('/patients')->with('success','Patient crée  avec succès');
 
-        $patient = new Patient;
-        $patient->nom = $request->input('nom');
-        $patient->prenom = $request->input('prenom');
-        $patient->age = $request->input('age');
-        $patient->sexe = $request->input('sexe');
-        $patient->adresse = $request->input('adresse');
-        $patient->contact = $request->input('contact');
-        $patient->user_id = auth()->user()->id;
-        //$patient->onWait = $request->input('onWait');
-        $patient->save();
-
-        return redirect('/patients')->with('success','Patient créé  avec succès');
     }
 
     /**
@@ -70,9 +61,8 @@ class PatientsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Patient $patient)
     {
-        $patient = Patient::find($id);
         session(['patient'=>$patient]);
         return view('patients.show')->with('patient', $patient);
     }
@@ -83,10 +73,9 @@ class PatientsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Patient $patient)
     {
-        $patient = Patient::find($id);
-        return view('patients.edit')->with('patient', $patient);
+        return view('patients.edit',compact('patient'));
     }
 
     /**
@@ -96,24 +85,11 @@ class PatientsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Patient $patient)
     {
-        $this->validate($request, [
-            'nom' => 'required',
-            'prenom' => 'required',
-            'contact' => 'required'
-        ]);
+        $patient->update($this->validateRequest());
 
-        $patient = Patient::find($id);
-        $patient->nom = $request->input('nom');
-        $patient->prenom = $request->input('prenom');
-        $patient->age = $request->input('age');
-        $patient->sexe = $request->input('sexe');
-        $patient->adresse = $request->input('adresse');
-        $patient->contact = $request->input('contact');
-        $patient->save();
-
-        return redirect('/patients')->with('success','Patient modifié  avec succès');
+        return redirect('/patients/'.$patient->id)->with('success','Patient modifié avec succès');
     }
 
     /**
@@ -122,9 +98,8 @@ class PatientsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Patient $patient)
     {
-        $patient = Patient::find($id);
         $patient->delete();
         return redirect('/patients')->with('success','Patient supprimé  avec succès');
     }
@@ -133,5 +108,25 @@ class PatientsController extends Controller
     {
         $patients = Patient::where('onWait',1)->get();
         return view('patients.waiting')->with('patients', $patients);
+    }
+
+    // regles de validation commune
+    public function validateRequest(){
+
+        $data =  request()->validate(
+            [
+                'nom' => 'required',
+                'prenom' => 'required',
+                'contact' => 'required',
+                'sexe' => '',
+                'age' => '',
+                'adresse' => ''
+            ]
+        );
+
+        $data['user_id'] = auth()->user()->id;
+
+        return $data;
+
     }
 }
