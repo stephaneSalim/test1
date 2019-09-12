@@ -38,13 +38,13 @@ class ConsultationsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store()
     {
         $consultation = new Consultation;
-        $consultation->accompagnant = $request->input('accompagnant');
-        $consultation->contactaccompagnant = $request->input('contactaccompagnant');
-        $consultation->reference = $request->input('reference');
-        $consultation->patient_id = $request->input('patient_id');
+        $consultation->accompagnant = $request('accompagnant');
+        $consultation->contactaccompagnant = $request('contactaccompagnant');
+        $consultation->reference = $request('reference');
+        $consultation->patient_id = $request('patient_id');
         $consultation->save();
         return redirect('/consultations')->with('success','consultation créee avec success');
     }
