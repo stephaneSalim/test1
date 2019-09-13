@@ -28,8 +28,9 @@ class ConsultationsController extends Controller
      */
     public function create(Request $request)
     {
-        $patient = $request->session()->get('patient');
-        return view('consultations.create')->with('patient',$patient);
+        $consultation = new Consultation();
+        $consultation->patient_id = $request->session()->get('patient')->id;
+        return view('consultations.create')->with('consultation',$consultation);
     }
 
     /**
@@ -40,12 +41,7 @@ class ConsultationsController extends Controller
      */
     public function store()
     {
-        $consultation = new Consultation;
-        $consultation->accompagnant = $request('accompagnant');
-        $consultation->contactaccompagnant = $request('contactaccompagnant');
-        $consultation->reference = $request('reference');
-        $consultation->patient_id = $request('patient_id');
-        $consultation->save();
+        Consultation::create($this->validateRequest());
         return redirect('/consultations')->with('success','consultation créee avec success');
     }
 
@@ -94,5 +90,23 @@ class ConsultationsController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function validateRequest(){
+
+        $data =  request()->validate(
+            [
+                'accompagnant' => '',
+                'contactaccompagnant' => '',
+                'reference' => '',
+                'onWait' => '',
+                'patient_id' => ''
+            ]
+        );
+
+        //$data['user_id'] = auth()->user()->id;
+
+        return $data;
+
     }
 }

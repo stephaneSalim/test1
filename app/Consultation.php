@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Consultation extends Model
 {
 
+    protected $guarded = [];
+
     public function ficheDeSuivi()
     {
         return $this->hasOne('App\FicheDeSuivi');
