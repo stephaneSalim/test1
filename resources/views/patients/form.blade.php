@@ -2,7 +2,7 @@
 <div class="form-group">
     <label for="nom">Nom:</label>
     <input type="text" name="nom" id="nom" value="{{ old('nom') ?? $patient->nom }}" placeholder="saisissez le nom" class="form-control" >
-     <div> {{ $errors->first('nom') }} </div>
+    <div> {{ $errors->first('nom') }} </div>
 </div>
 <div class="form-group">
     <label for="prenom">Prenom:</label>
