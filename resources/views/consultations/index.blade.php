@@ -6,7 +6,7 @@
             <h1>Consultations en attente</h1>
         </div>
         <div class="col-md-6 text-right" >
-            <a href="/patients" class="btn btn-primary">Ajouter consultation</a>
+        <a href="{{ route('patients.index') }}" class="btn btn-primary">Ajouter consultation</a>
         </div>
     </div>
     <table class="table table-bordered">
@@ -23,11 +23,11 @@
                 @foreach ($consultations as $consultation)
                 <tr>
                     <td>{{$consultation->id}}</td>
-                    <td><a href="/consultations/{{$consultation->id}}">{{$consultation->patient->nom}} {{$consultation->patient->prenom}}</a></td>
+                <td><a href="{{ route('consultations.show', ['consultation' => $consultation ]) }}"> {{ $consultation->patient->nom}} {{$consultation->patient->prenom}}</a></td>
                     <td></td>
                     <td>
                         <form>
-                            <a href="/consultations/{{$consultation->id}}" class="btn btn-info">Voir</a>
+                            <a href="{{ route('consultations.show', ['consultation' => $consultation ]) }}" class="btn btn-info">Voir</a>
                             <a href="" class="btn btn-warning">Modifier</a>
                             <button type="submit" class="btn btn-danger">Supprimer</button>
                         </form>

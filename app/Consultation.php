@@ -18,7 +18,6 @@ class Consultation extends Model
      * Relation 1,1 entre consultation et patient
      */
     public function patient(){
-
        return $this->belongsTo(Patient::class);
     }
 }

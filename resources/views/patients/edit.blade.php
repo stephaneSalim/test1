@@ -9,7 +9,7 @@
             <h1>Modification des infos du patient {{ $patient->nom }} {{ $patient->prenom }} </h1>
         </div>
     </div>
-    <form action="/patients/{{ $patient->id }}" method="POST">
+   <form action="{{ route('patients.update',['patient' => $patient]) }}" method="POST">
             @method('PATCH')
             @include('patients.form')
             <div class="form-group">

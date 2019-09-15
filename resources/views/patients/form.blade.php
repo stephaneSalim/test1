@@ -11,7 +11,7 @@
 </div>
 <div class="form-group">
     <label for="age">Age:</label>
-    <input type="number" name="age" id="age"  class="form-control" value="{{ old('age') ?? $patient->age }} ">
+    <input type="text" name="age" id="age"  class="form-control" value="{{ old('age') ?? $patient->age }} ">
 </div>
 <div class="form-group">
     <label for="sexe">Sexe:</label>
