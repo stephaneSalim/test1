@@ -4,8 +4,8 @@
 
 @section('content')
      <div class="row">
-         <div class="col"><a href="/patients" class="btn btn-secondary">Retour</a></div>
-         <div class="col"><a href="/consultations/create" class="btn btn-secondary pull-right">Consultation</a></div>
+     <div class="col"><a href="{{ route('patients.index') }}" class="btn btn-secondary"><i class="fas fa-angle-left"></i> Retour</a></div>
+     <div class="col text-right"><a href="{{ route('consultations.create') }}" class="btn btn-secondary"> <i class="fas fa-diagnoses"></i> Consultation</a></div>
      </div><br>
 
     <h1>{{$patient->nom}} {{$patient->prenom}}</h1>
@@ -16,13 +16,13 @@
     <p>Contact: <b>{{$patient->contact}}</b></p>
     <div class="row">
         <div class="col">
-             <a href="/patients/{{$patient->id}}/edit" class="btn btn-info">Modifier</a>
+        <a href="{{ route('patients.edit', ['patient' => $patient]) }}" class="btn btn-success"> <i class="fas fa-pencil-alt"></i> Modifier</a>
         </div>
         <div class="col">
-            <form action="/patients/{{ $patient->id }}" method="POST">
+            <form action="{{ route('patients.destroy',['patient' => $patient]) }}" method="POST">
                 @method('DELETE')
                 @csrf
-                <button type="submit" class="btn btn-danger">Supprimer</button>
+                <button type="submit" class="btn btn-danger"><i class="fas fa-trash-alt"></i> Supprimer</button>
 
             </form>
         </div>

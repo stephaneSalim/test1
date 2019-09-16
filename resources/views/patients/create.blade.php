@@ -7,7 +7,7 @@
         <div class="col"> <h1>Nouveau Patient </h1></div>
     </div>
     <br>
-    <form action="/patients" method="POST">
+<form action="{{ route('patients.store')}}" method="POST">
          @include('patients.form')
          <div class="form-group">
             <button type="submit"class="btn btn-primary">Enregistrer</button>
