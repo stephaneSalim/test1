@@ -29,8 +29,15 @@ class ConsultationsController extends Controller
     public function create(Request $request)
     {
         $consultation = new Consultation();
-        $consultation->patient_id = $request->session()->get('patient')->id;
-        return view('consultations.create')->with('consultation',$consultation);
+
+        $patient= $request->session()->get('patient');
+
+        // recuperation de l'id du patient 
+        $consultation->patient_id = $patient->id ;
+
+        //$consultation->patient()->id= $request->session()->get('patient');
+
+        return view('consultations.create',compact('consultation','patient'));
     }
 
     /**
@@ -64,9 +71,9 @@ class ConsultationsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Consultation $consultation)
     {
-        //
+        return view('consultations.edit',compact('consultation'));
     }
 
     /**
@@ -76,9 +83,11 @@ class ConsultationsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Consultation $consultation)
     {
-        //
+        $consultation->update($this->validateRequest());
+
+        return redirect()->route('consultations.index')->with('success','Infos de l\'accompagnant modifiés avec succès');
     }
 
     /**
@@ -87,9 +96,10 @@ class ConsultationsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Consultation $consultation)
     {
-        //
+        $consultation->delete();
+        return redirect()->route('consultations.index')->with('success','Patient supprimé  avec succès');
     }
 
     public function validateRequest(){
