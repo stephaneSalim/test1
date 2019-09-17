@@ -13,8 +13,8 @@
         <thead>
             <tr>
                 <th>No</th>
-                <th>Nom et prenom</th>
-                <th>Specialite</th>
+                <th>Nom et prénom</th>
+                <th>Spécialité</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -26,9 +26,12 @@
                 <td><a href="{{ route('consultations.show', ['consultation' => $consultation ]) }}"> {{ $consultation->patient->nom}} {{$consultation->patient->prenom}}</a></td>
                     <td></td>
                     <td>
-                        <form>
-                            <a href="{{ route('consultations.show', ['consultation' => $consultation ]) }}" class="btn btn-info">Voir</a>
-                            <a href="" class="btn btn-warning">Modifier</a>
+                        <a href="{{ route('consultations.show', ['consultation' => $consultation ]) }}" class="btn btn-info">Voir</a>
+                        <a href="{{ route('consultations.edit', ['consultation' => $consultation ]) }}" class="btn btn-warning">Modifier</a>
+
+                        <form action="{{ route('consultations.destroy',['consultation' => $consultation]) }}" method="POST" class="d-inline">
+                            @method('DELETE')
+                            @csrf
                             <button type="submit" class="btn btn-danger">Supprimer</button>
                         </form>
                     </td>

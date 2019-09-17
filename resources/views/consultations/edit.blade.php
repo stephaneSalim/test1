@@ -3,12 +3,12 @@
 
     <div class="row">
         <div class="col text-center"> 
-            <h1>Consultation du patient {{ $patient->nom .' '. $patient->prenom  }} </h1>
+            <h1>Edition de la consultation du patient {{ $consultation->patient->nom .' '. $consultation->patient->prenom  }} </h1>
         </div>
     </div>
     <br>
-    <form  action="{{ route('consultations.store') }}" method="POST">
-        @method('POST')
+    <form  action="{{ route('consultations.update',['consultation' => $consultation]) }}" method="POST">
+        @method('PATCH')
         @include('consultations.form')
         <div class="form-group">
             <input type="submit" value="Créer" class="btn btn-primary btn-block">
