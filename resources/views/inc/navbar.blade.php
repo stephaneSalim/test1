@@ -13,6 +13,7 @@
                 <li class="nav-item"><a class="nav-link" href="/">Accueil</a></li>
                 <li class="nav-item"><a  class="nav-link" href="/patients">Patients</a></li>
                 <li class="nav-item"><a class="nav-link" href="/consultations">Consultations</a></li>
+                <li class="nav-item"><a class="nav-link" href="/type_consultations">Parametres</a></li>
             </ul>
 
             <!-- Right Side Of Navbar -->

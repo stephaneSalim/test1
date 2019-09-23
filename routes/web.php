@@ -22,6 +22,7 @@ Route::get('/search', 'PatientsController@search');
 Route::resource('/patients', 'PatientsController');
 Route::resource('/consultations','ConsultationsController');
 Route::resource('/fichesDeSuivi','FichesDeSuiviController');
+Route::resource('/type_consultations','Type_consultationsController');
 Auth::routes();
 
 //Route::get('/home', 'HomeController@index')->name('home');

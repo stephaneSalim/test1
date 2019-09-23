@@ -1,5 +1,14 @@
 @csrf
 <div class="form-group">
+    <label for="type_consultation_id">Type de consultation:</label>
+    <select name="type_consultation_id" id="type_consultation_id" class="form-control">
+        @foreach ($type_consultations as $type_consultation)
+            <option value="{{$type_consultation->id}}">{{$type_consultation->nom}}</option>
+        @endforeach
+    </select>
+    <div> {{ $errors->first('type_consultation') }} </div>
+</div>
+<div class="form-group">
     <label for="accompagnant">Accompagnant:</label>
     <input type="text" name="accompagnant" id="accompagnant" value="{{ old('accompagnant') ?? $consultation->accompagnant }}" placeholder="Nom et prenom" class="form-control">
     <div> {{ $errors->first('accompagnant') }} </div>

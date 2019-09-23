@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Patient;
+use App\Consultation;
 use DB;
 
 class PatientsController extends Controller
@@ -64,7 +65,8 @@ class PatientsController extends Controller
     public function show(Patient $patient)
     {
         session(['patient'=>$patient]);
-        return view('patients.show')->with('patient', $patient);
+        $consultations = Consultation::all()->where('patient_id','=',$patient->id);
+        return view('patients.show', compact('patient','consultations'));
     }
 
     /**
@@ -103,13 +105,7 @@ class PatientsController extends Controller
         $patient->delete();
         return redirect('/patients')->with('success','Patient supprimé  avec succès');
     }
-
-    public function waiting()
-    {
-        $patients = Patient::where('onWait',1)->get();
-        return view('patients.waiting')->with('patients', $patients);
-    }
-
+    
     // regles de validation commune
     public function validateRequest(){
 

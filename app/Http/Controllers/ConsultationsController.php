@@ -5,10 +5,13 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Consultation;
 use App\Patient;
+use App\FicheDeSuivi;
+use App\Type_consultation;
 use Carbon\Carbon;
 
 class ConsultationsController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
@@ -16,8 +19,7 @@ class ConsultationsController extends Controller
      */
     public function index()
     {
-        $consultations = Consultation::whereDate('created_at', Carbon::today())->orderBy('created_at','asc')->paginate(20);
-        //dd($consultations);
+        $consultations = Consultation::whereDate('created_at', Carbon::today())->where('onWait','=',1)->orderBy('created_at','asc')->paginate(20);
         return view('consultations.index')->with('consultations', $consultations);
     }
 
@@ -36,8 +38,8 @@ class ConsultationsController extends Controller
         $consultation->patient_id = $patient->id ;
 
         //$consultation->patient()->id= $request->session()->get('patient');
-
-        return view('consultations.create',compact('consultation','patient'));
+        $type_consultations = Type_consultation::all();
+        return view('consultations.create',compact('consultation','patient','type_consultations'));
     }
 
     /**
@@ -58,11 +60,10 @@ class ConsultationsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Consultation $consultation)
     {
-        $consultation = Consultation::find($id);
         session(['consultation'=>$consultation]);
-        return view('consultations.show')->with('consultation', $consultation);
+        return view('consultations.show',compact('consultation'));
     }
 
     /**
@@ -86,8 +87,12 @@ class ConsultationsController extends Controller
     public function update(Consultation $consultation)
     {
         $consultation->update($this->validateRequest());
-
-        return redirect()->route('consultations.index')->with('success','Infos de l\'accompagnant modifiés avec succès');
+        if($consultation->onWait == 1){
+            return redirect()->route('consultations.index')->with('success','Infos de l\'accompagnant modifiés avec succès');
+        }else{
+            return redirect()->route('fichesDeSuivi.create');
+        }
+        
     }
 
     /**
@@ -106,6 +111,7 @@ class ConsultationsController extends Controller
 
         $data =  request()->validate(
             [
+                'type_consultation_id'=>'',
                 'accompagnant' => '',
                 'contactaccompagnant' => '',
                 'reference' => '',
@@ -113,10 +119,6 @@ class ConsultationsController extends Controller
                 'patient_id' => ''
             ]
         );
-
-        //$data['user_id'] = auth()->user()->id;
-
         return $data;
-
     }
 }
