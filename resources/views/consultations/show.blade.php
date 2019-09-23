@@ -3,7 +3,14 @@
     
      <div class="row">
          <div class="col">  <a href="{{ route('consultations.index') }}" class="btn btn-secondary">Retour</a></div>
-         <div class="col text-right"> <a href="{{ route('fichesDeSuivi.create') }}" class="btn btn-secondary">Consulter</a></div>
+         @if ($consultation->onWait == 1)
+         <form action="/consultations/{{$consultation->id}}" method="POST">
+            @method('PATCH')
+            @csrf
+            <input type="hidden" name="onWait" value="0">
+            <input type="submit" value="Consulter" class="btn btn-primary btn-block">
+         </form>
+         @endif
      </div><br>
   
     
@@ -39,4 +46,35 @@
         </p><br>
     </div>
     <hr>
+
+    <!-- Affichage fiche de suivi -->
+    @if ($consultation->onWait == 0)
+    <div>
+        <label>Tension:</label>{{$consultation->ficheDeSuivi->tension}}
+    </div>
+    <div>
+        <label>Temperature:</label>{{$consultation->ficheDeSuivi->temperature}}
+    </div>
+    <div>
+        <label>Poids:</label>{{$consultation->ficheDeSuivi->poids}}
+    </div>
+    <div>
+        <label>Motif:</label>{{$consultation->ficheDeSuivi->motif}}
+    </div>
+    <div>
+        <label>Symptomes:</label>{{$consultation->ficheDeSuivi->symptomes}}
+    </div>
+    <div>
+        <label>Description:</label>{{$consultation->ficheDeSuivi->description}}
+    </div>
+    <div>
+        <label>Antecedents:</label>{{$consultation->ficheDeSuivi->antecedents}}
+    </div>
+    <div>
+        <label>Diagnostic:</label>{{$consultation->ficheDeSuivi->diagnostic}}
+    </div>
+    <div>
+        <label>Prescription:</label>{{$consultation->ficheDeSuivi->prescription}}
+    </div>
+    @endif
 @endsection 

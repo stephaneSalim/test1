@@ -14,8 +14,6 @@ class FichesDeSuiviController extends Controller
      */
     public function index()
     {
-        $fichesDeSuivi = FicheDeSuivi::orderBy('created_at','asc')->paginate(20);
-        return view('fichesDeSuivi.index')->with('fichesDeSuivi', $fichesDeSuivi);
     }
 
     /**
@@ -23,9 +21,14 @@ class FichesDeSuiviController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $fichesDeSuivi = new FicheDeSuivi;
+        $consultation= $request->session()->get('consultation');
+
+        // recuperation de l'id du patient 
+        $fichesDeSuivi->consultation_id = $consultation->id ;
+        return view('fichesDeSuivi.create', compact('fichesDeSuivi','consultation'));
     }
 
     /**
@@ -36,7 +39,8 @@ class FichesDeSuiviController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        FichedeSuivi::create($this->validateRequest());
+        return redirect('../consultations')->with('success','Fiche de suivi enregistrée avec success');
     }
 
     /**
@@ -83,4 +87,23 @@ class FichesDeSuiviController extends Controller
     {
         //
     }
+
+    public function validateRequest(){
+
+        $data =  request()->validate(
+            [
+                'tension' => '',
+                'temperature' => '',
+                'poids' => '',
+                'motif' => '',
+                'symptomes' => '',
+                'description' => '',
+                'antecedents' => '',
+                'diagnostic' => '',
+                'prescription' => '',
+                'consultation_id' => ''
+            ]
+        );
+        return $data;
+    }    
 }

@@ -15,16 +15,15 @@ class CreateFicheDeSuivisTable extends Migration
     {
         Schema::create('fiche_de_suivis', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('tension');
+            $table->integer('tension')->nullable();
             $table->decimal('temperature');
-            $table->integer('poids');
+            $table->integer('poids')->nullable();
             $table->string('motif');
             $table->mediumText('symptomes');
-            $table->mediumText('description');
-            $table->mediumText('antecedents');
+            $table->mediumText('description')->nullable();
+            $table->mediumText('antecedents')->nullable();
             $table->mediumText('diagnostic');
             $table->mediumText('prescription');
-
             $table->timestamps();
         });
     }

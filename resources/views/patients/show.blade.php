@@ -27,11 +27,16 @@
             </form>
         </div>
     </div>
-
-
-
     <hr>
-
-
-
+    <table>
+        @if(count($consultations) > 0)
+        <tr>
+            @foreach ($consultations as $consultation)
+                <td><a href="{{route('consultations.show',['consultation'=>$consultation])}}">{{$consultation->created_at}}</a></td>
+            @endforeach
+        </tr>
+    </table>
+    @else
+        <p>Aucune consultation trouvée</p>
+    @endif
 @endsection
